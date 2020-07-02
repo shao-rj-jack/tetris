@@ -235,10 +235,8 @@ def main():
             next_piece = get_shape()
             change_piece = False
 
-            # check if row can be cleared 4 times
-            for i in range(3):
-                if clear_row(locked_positions):
-                    score += 10
+            if clear_row(locked_positions):
+                score += 10
 
         draw_window(screen)
         pygame.display.update()
