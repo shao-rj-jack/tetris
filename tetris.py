@@ -138,7 +138,10 @@ def clear_row(locked_positions):
             empty_row_count += 1
             lowest_row = i
             for j in range(len(row)):
-                del locked_positions[(j, i)]
+                try:
+                    del locked_positions[(j, i)]
+                except:
+                    continue
 
     if empty_row_count > 0:
         for key in sorted(list(locked_positions), key=lambda a: a[1])[::-1]:
