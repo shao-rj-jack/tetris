@@ -152,6 +152,24 @@ def clear_row(locked_positions):
                 locked_positions[new_key] = locked_positions.pop(key)  # assign values to locked_positions
 
 
+def draw_next_shape(shape, surface):
+    """Function draws a window that shoes the next shape."""
+    font = pygame.font.SysFont('comicsans', 30)
+    label = font.render('Next Shape', 1, white)
+
+    window_x = playTopLeftX + playWidth + 50
+    window_y = playTopLeftY + playHeight / 2 - 100
+
+    surface.blit(label, (window_x + 10, window_y - 30))
+
+    display_format = shape.shape_type[0]
+    for i, line in enumerate(display_format):
+        row = list(line)
+        for j, column in enumerate(row):
+            if column == '0':
+                pygame.draw.rect(surface, shape.color, (window_x + j * blockSize, window_y + i * blockSize, 30, 30), 0)
+
+
 def main():
     """The main game loop."""
     # create empty current positions
@@ -239,6 +257,7 @@ def main():
                 score += 10
 
         draw_window(screen)
+        draw_next_shape(next_piece, screen)
         pygame.display.update()
 
     draw_text_middle('You Lost :(', 40, white, screen)
