@@ -152,6 +152,15 @@ def clear_row(locked_positions):
                 locked_positions[new_key] = locked_positions.pop(key)  # assign values to locked_positions
 
 
+def check_lost(locked_positions):
+    """Function that checks all placed pieces to see if user has lost the game."""
+    for position in locked_positions:
+        x, y = position
+        if y < 1:
+            return True
+    return False
+
+
 def draw_next_shape(shape, surface):
     """Function draws a window that shoes the next shape."""
     font = pygame.font.SysFont('comicsans', 30)
