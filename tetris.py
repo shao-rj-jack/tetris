@@ -269,6 +269,9 @@ def main():
         draw_next_shape(next_piece, screen)
         pygame.display.update()
 
+        if check_lost(locked_positions):
+            run = False
+
     draw_text_middle('You Lost :(', 40, white, screen)
     pygame.display.update()
     pygame.time.delay(2000)
