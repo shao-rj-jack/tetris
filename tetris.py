@@ -131,25 +131,22 @@ def is_valid_space(shape):
 def clear_row(locked_positions):
     """Function to check if any row is able to be cleared.
     If yes, delete the row(s), and shift everything above down."""
-    empty_row_count = 0
     for i in range(len(grid) - 1, -1, -1):
         row = grid[i]
         if black not in row:
-            empty_row_count += 1
-            lowest_row = i
             for j in range(len(row)):
                 try:
                     del locked_positions[(j, i)]
                 except:
                     continue
 
-    if empty_row_count > 0:
-        for key in sorted(list(locked_positions), key=lambda a: a[1])[::-1]:
-            # get the coordinates for all locked positions
-            x, y = key
-            if y < lowest_row:
-                new_key = (x, y + empty_row_count)  # shift coordinates down
-                locked_positions[new_key] = locked_positions.pop(key)  # assign values to locked_positions
+            row_delete = i
+            for key in sorted(list(locked_positions), key=lambda a: a[1])[::-1]:
+                # get the coordinates for all locked positions
+                x, y = key
+                if y < row_delete:
+                    new_key = (x, y + 1)  # shift coordinates down
+                    locked_positions[new_key] = locked_positions.pop(key)  # assign values to locked_positions
 
 
 def check_lost(locked_positions):
@@ -264,6 +261,7 @@ def main():
 
             if clear_row(locked_positions):
                 score += 10
+                print('here')
 
         draw_window(screen)
         draw_next_shape(next_piece, screen)
